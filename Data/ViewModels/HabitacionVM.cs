@@ -12,5 +12,7 @@ namespace pruebahotel.Data.ViewModels
         public int capacidad { get; set; }
         public int precio_noche { get; set; }
         public string estado { get; set; }
-    }
+        public List<int> id_hotel { get; set; }
+        
+}
 }

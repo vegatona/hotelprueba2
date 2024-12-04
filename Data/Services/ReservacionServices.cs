@@ -26,6 +26,17 @@ namespace pruebahotel.Data.Services
             };
             _context.Reservaciones.Add(_reserva);
             _context.SaveChanges();
+
+            foreach (var id in reserva.id_usuario)
+            {
+                var _detalle_reserva = new detalles_reserva()
+                {
+                    id_reservacion = _reserva.id_reservacion,
+                    Id_habitacion = id
+                };
+                _context.detalles_Reservas.Add(_detalle_reserva);
+                _context.SaveChanges();
+            }
         }
         //listar
         public List<reservaciones> GetReservacion() => _context.Reservaciones.ToList();

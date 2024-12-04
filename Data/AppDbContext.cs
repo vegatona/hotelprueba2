@@ -22,7 +22,7 @@ namespace pruebahotel.Data
                 .HasForeignKey(bi => bi.Id_habitacion);
         }
 
-        //utilizamos est metodo para obtener y enviar BD.
+        //utilizamos este metodo para obtener y enviar BD.
         public DbSet<Hotel> hotels { get; set; }
         public DbSet<Habitacion> habitaciones { get ;set; }
         public DbSet<reservaciones> Reservaciones { get; set; }

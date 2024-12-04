@@ -13,5 +13,6 @@ namespace pruebahotel.Data.ViewModels
         public DateTime fecha_final { get; set; }
         public string estado { get; set; }
         public int total_pagado { get; set; }
+        public List<int> id_usuario { get; set; }
     }
 }

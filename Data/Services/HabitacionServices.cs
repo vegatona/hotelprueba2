@@ -22,10 +22,21 @@ namespace pruebahotel.Data.Services
                 tipo = habitacion.tipo,
                 capacidad = habitacion.capacidad,
                 precio_noche = habitacion.precio_noche,
-                estado = habitacion.estado
+                estado = habitacion.estado,
             };
             _context.habitaciones.Add(_habitacion);
             _context.SaveChanges();
+
+            foreach (var id in habitacion.id_hotel)
+            {
+                var _detalles_reserva = new detalles_reserva()
+                {
+                    Id_habitacion = _habitacion.Id_habitacion,
+                    id_reservacion = id
+                };
+                _context.detalles_Reservas.Add(_detalles_reserva);
+                _context.SaveChanges();
+            }
         }
         //listar
         public List<Habitacion> GetHabitacions() => _context.habitaciones.ToList();
