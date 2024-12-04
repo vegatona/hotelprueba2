@@ -2,6 +2,7 @@
 using pruebahotel.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace pruebahotel.Data.Services
 {
@@ -44,6 +45,10 @@ namespace pruebahotel.Data.Services
 
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new Exception("La reservacion no se puede modificar");
+            }
             return _reserva;
         }
         //eliminar
@@ -54,6 +59,10 @@ namespace pruebahotel.Data.Services
             {
                 _context.Reservaciones.Remove(_reserva);
                 _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception($"La reservacion con el id {idreserva} no existe!");
             }
         }
     }

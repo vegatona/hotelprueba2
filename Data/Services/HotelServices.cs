@@ -46,6 +46,10 @@ namespace pruebahotel.Data.Services
 
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new Exception("El hotel no se pudo modificar!");
+            }
             return _hotel;
         }
         //eliminar
@@ -56,6 +60,10 @@ namespace pruebahotel.Data.Services
             {
                 _context.hotels.Remove(_hotel);
                 _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception($"El hotel con el id {idhotel} no existe!");
             }
         }
     }

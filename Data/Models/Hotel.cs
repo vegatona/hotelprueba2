@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace pruebahotel.Data.Models
 {
@@ -12,5 +13,8 @@ namespace pruebahotel.Data.Models
         public int telefono { get; set; }
         public DateTime horarios { get; set; }
         public string descripcion { get; set; }
+
+        //propiedades de navegación
+        public List<Habitacion> habitaciones { get; set; }
     }
 }

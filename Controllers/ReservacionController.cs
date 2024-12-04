@@ -24,40 +24,75 @@ namespace pruebahotel.Controllers
         [HttpGet("Listar todas las reservaciones")]
         public IActionResult Getallreservacion()
         {
-            var allreservaciones = _reservacionService.GetReservacion();
-            return Ok(allreservaciones);
+            try
+            {
+                var allreservaciones = _reservacionService.GetReservacion();
+                return Ok(allreservaciones);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //buscar reservacion
         [HttpGet("Buscar reservacion/{id}")]
         public IActionResult GetreservacionById(int id)
         {
-            var reservacion = _reservacionService.GetReservacionById(id);
-            return Ok(reservacion);
+            try
+            {
+                var reservacion = _reservacionService.GetReservacionById(id);
+                return Ok(reservacion);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //agregar reservacion
         [HttpPost("Agregar reservacion")]
         public IActionResult Addreservacion([FromBody] ReservaVM reservacion)
         {
-            _reservacionService.AddReservacion(reservacion);
-            return Ok();
+            try
+            {
+                _reservacionService.AddReservacion(reservacion);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //Editar reservacion
         [HttpPut("Modificar reservacion/{id}")]
         public IActionResult UpdatereservacionById(int id, [FromBody] ReservaVM reservacion)
         {
-            var updatereservacion = _reservacionService.UpdateReservacionById(id, reservacion);
-            return Ok(updatereservacion);
+            try
+            {
+                var updatereservacion = _reservacionService.UpdateReservacionById(id, reservacion);
+                return Ok(updatereservacion);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //Eliminar reservacion
         [HttpDelete("Eliminar reservacion/{id}")]
         public IActionResult DeletereservacionById(int id)
         {
-            _reservacionService.DeletereservaById(id);
-            return Ok();
+            try
+            {
+                _reservacionService.DeletereservaById(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

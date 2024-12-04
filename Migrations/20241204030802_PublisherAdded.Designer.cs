@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pruebahotel.Data;
 
 namespace pruebahotel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241204030802_PublisherAdded")]
+    partial class PublisherAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,28 +110,6 @@ namespace pruebahotel.Migrations
                     b.ToTable("usuarios");
                 });
 
-            modelBuilder.Entity("pruebahotel.Data.Models.detalles_reserva", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Id_habitacion")
-                        .HasColumnType("int");
-
-                    b.Property<int>("id_reservacion")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Id_habitacion");
-
-                    b.HasIndex("id_reservacion");
-
-                    b.ToTable("detalles_Reservas");
-                });
-
             modelBuilder.Entity("pruebahotel.Data.Models.reservaciones", b =>
                 {
                     b.Property<int>("id_reservacion")
@@ -146,6 +126,9 @@ namespace pruebahotel.Migrations
                     b.Property<DateTime>("fecha_inicio")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("habitacionId_habitacion")
+                        .HasColumnType("int");
+
                     b.Property<int>("id_habitacion")
                         .HasColumnType("int");
 
@@ -159,6 +142,8 @@ namespace pruebahotel.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("id_reservacion");
+
+                    b.HasIndex("habitacionId_habitacion");
 
                     b.HasIndex("usuarioid_usuario");
 
@@ -174,37 +159,19 @@ namespace pruebahotel.Migrations
                     b.Navigation("hotel");
                 });
 
-            modelBuilder.Entity("pruebahotel.Data.Models.detalles_reserva", b =>
-                {
-                    b.HasOne("pruebahotel.Data.Models.Habitacion", "Habitacion")
-                        .WithMany("detalles_Reservas")
-                        .HasForeignKey("Id_habitacion")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("pruebahotel.Data.Models.reservaciones", "Reservaciones")
-                        .WithMany("detalles_Reservas")
-                        .HasForeignKey("id_reservacion")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Habitacion");
-
-                    b.Navigation("Reservaciones");
-                });
-
             modelBuilder.Entity("pruebahotel.Data.Models.reservaciones", b =>
                 {
+                    b.HasOne("pruebahotel.Data.Models.Habitacion", "habitacion")
+                        .WithMany()
+                        .HasForeignKey("habitacionId_habitacion");
+
                     b.HasOne("pruebahotel.Data.Models.Usuario", "usuario")
                         .WithMany("reservaciones")
                         .HasForeignKey("usuarioid_usuario");
 
-                    b.Navigation("usuario");
-                });
+                    b.Navigation("habitacion");
 
-            modelBuilder.Entity("pruebahotel.Data.Models.Habitacion", b =>
-                {
-                    b.Navigation("detalles_Reservas");
+                    b.Navigation("usuario");
                 });
 
             modelBuilder.Entity("pruebahotel.Data.Models.Hotel", b =>
@@ -215,11 +182,6 @@ namespace pruebahotel.Migrations
             modelBuilder.Entity("pruebahotel.Data.Models.Usuario", b =>
                 {
                     b.Navigation("reservaciones");
-                });
-
-            modelBuilder.Entity("pruebahotel.Data.Models.reservaciones", b =>
-                {
-                    b.Navigation("detalles_Reservas");
                 });
 #pragma warning restore 612, 618
         }
